@@ -112,7 +112,7 @@ String orderTotalAmount = "";
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image.asset(
-            "Images/confirm2.png",
+            "images/confirm2.png",
             //width: 350,
           ),
           const SizedBox(

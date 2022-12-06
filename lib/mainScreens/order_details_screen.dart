@@ -26,8 +26,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
   String orderByUser = "";
   String sellerId = "";
 
-  getOrderInfo()
-  {
+  getOrderInfo() {
     FirebaseFirestore.instance
         .collection("orders")
         .doc(widget.orderID).get().then((DocumentSnapshot)

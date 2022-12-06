@@ -77,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
             }
             if(index == 4){
               //Ganancias
-              Navigator.push(context, MaterialPageRoute(builder:(c)=>  EarningsScreen()));
+              Navigator.push(context, MaterialPageRoute(builder:(c)=>  const EarningsScreen()));
             }
             if(index == 5){
               //Cerrar Sesion
@@ -197,7 +197,7 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               makeDashboardItem("Nuevos pedidos disponibles", Icons.assessment, 0),
               makeDashboardItem("Paquete en Curso", Icons.airport_shuttle, 1),
-              makeDashboardItem("Nuevos pedidos disponibles", Icons.location_history, 2),
+              makeDashboardItem("Entregas Pendientes", Icons.location_history, 2),
               makeDashboardItem("Historial", Icons.done_all, 3),
               makeDashboardItem("Total Ganancias", Icons.monetization_on, 4),
               makeDashboardItem("Cerrar Sesion", Icons.logout, 5),

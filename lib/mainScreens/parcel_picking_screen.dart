@@ -77,7 +77,7 @@ class _ParcelPickingScreenState extends State<ParcelPickingScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image.asset(
-            "Images/confirm1.png",
+            "images/confirm1.png",
             width: 350,
           ),
           const SizedBox(

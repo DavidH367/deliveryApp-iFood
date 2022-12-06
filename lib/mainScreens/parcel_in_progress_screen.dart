@@ -6,27 +6,22 @@ import '../widgets/order_card.dart';
 import '../widgets/progress_bar.dart';
 import '../widgets/simple_app_bar.dart';
 
-
-class ParcelInProgressScreen extends StatefulWidget
-{
+class ParcelInProgressScreen extends StatefulWidget {
   @override
   _ParcelInProgressScreenState createState() => _ParcelInProgressScreenState();
 }
 
-
-
-class _ParcelInProgressScreenState extends State<ParcelInProgressScreen>
-{
+class _ParcelInProgressScreenState extends State<ParcelInProgressScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: SimpleAppBar(title: "Paquete en curso",),
+        appBar: SimpleAppBar(title: "Pedidos por Salir",),
         body: StreamBuilder<QuerySnapshot>(
           stream: FirebaseFirestore.instance
               .collection("orders")
               .where("riderUID", isEqualTo: sharedPreferences!.getString("uid"))
-              .where("status", isEqualTo: "pincking")
+              .where("status", isEqualTo: "picking")
               .snapshots(),
           builder: (c, snapshot)
           {
