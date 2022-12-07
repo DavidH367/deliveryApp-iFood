@@ -1,38 +1,66 @@
+import 'dart:async';
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as fStorage;
+import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../global/global.dart';
 import '../mainScreens/home_screen.dart';
+import '../requestpermission/request_permission_controller.dart';
+import '../requestpermission/request_permission_page.dart';
 import '../widgets/custom_text_field.dart';
 import '../widgets/error_dialog.dart';
 import '../widgets/loading_dialog.dart';
+import 'package:delivery/requestpermission/request_permission_controller.dart';
+import 'package:delivery/requestpermission/request_permission_controller.dart';
 
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
 
+
+
   @override
   _RegisterScreenState createState() => _RegisterScreenState();
 }
+TextEditingController locationController = TextEditingController();
 
-class _RegisterScreenState extends State<RegisterScreen>
-{
+getCurrentLocation() async {
+
+  Position newPosition = await Geolocator.getCurrentPosition(
+    desiredAccuracy: LocationAccuracy.high,
+  );
+
+  position = newPosition;
+
+  placeMarks = await placemarkFromCoordinates(
+    position!.latitude,
+    position!.longitude,
+  );
+
+  Placemark pMark = placeMarks![0];
+
+  completeAddress = '${pMark.subThoroughfare} ${pMark.thoroughfare}, ${pMark.subLocality} ${pMark.locality}, ${pMark.subAdministrativeArea}, ${pMark.administrativeArea} ${pMark.postalCode}, ${pMark.country}';
+
+  locationController.text = completeAddress;
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
+  final _controller = RequestPermissionController(Permission.locationWhenInUse);
+  late StreamSubscription _subscription;
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
-  TextEditingController locationController = TextEditingController();
+
 
   XFile? imageXFile;
   final ImagePicker _picker = ImagePicker();
@@ -44,6 +72,14 @@ class _RegisterScreenState extends State<RegisterScreen>
   String completeAddress = "";
 
 
+  @override
+  void initState(){
+    super.initState();
+
+  }
+
+
+
   Future<void> _getImage() async
   {
     imageXFile = await _picker.pickImage(source: ImageSource.gallery);
@@ -52,25 +88,47 @@ class _RegisterScreenState extends State<RegisterScreen>
     });
   }
 
-  getCurrentLocation() async
-  {
-    Position newPosition = await Geolocator.getCurrentPosition(
-      desiredAccuracy: LocationAccuracy.high,
-    );
+  requestperm()async {
 
-    position = newPosition;
+    @override
+    void initState(){
+      super.initState();
+      _controller.onStatusChanged.listen(
+            (status){
+          if(status == PermissionStatus.granted){
+            Navigator.push(context, MaterialPageRoute(builder: (c)=> const RegisterScreen()));
+          }
+        },
+      );
+    }
 
-    placeMarks = await placemarkFromCoordinates(
-      position!.latitude,
-      position!.longitude,
-    );
+    @override
+    void dispose(){
+      _subscription.cancel();
+      _controller.dispose();
+      super.dispose();
+    }
+    @override
+    Widget build(BuildContext context) {
+      return Scaffold(
+        body: SafeArea(
+          child: Container(
+            width: double.infinity,
+            height: double.infinity,
+            alignment: Alignment.center,
+            child: ElevatedButton(
+              child: Text("Permitir"),
+              onPressed: () { _controller.request(); },
 
-    Placemark pMark = placeMarks![0];
+            ),
+          ) ,),
+      );
+    }
 
-    completeAddress = '${pMark.subThoroughfare} ${pMark.thoroughfare}, ${pMark.subLocality} ${pMark.locality}, ${pMark.subAdministrativeArea}, ${pMark.administrativeArea} ${pMark.postalCode}, ${pMark.country}';
 
-    locationController.text = completeAddress;
   }
+
+
 
   Future<void> formValidation() async
   {
@@ -279,9 +337,8 @@ class _RegisterScreenState extends State<RegisterScreen>
                         Icons.location_on,
                         color: Colors.white,
                       ),
-                      onPressed: ()
-                      {
-                        getCurrentLocation();
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (c)=> const RequestPermissionPage()));
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.amber,
@@ -301,7 +358,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                 style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold,),
               ),
               style: ElevatedButton.styleFrom(
-                primary: Colors.cyan,
+                backgroundColor: Colors.cyan,
                 padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
               ),
               onPressed: ()

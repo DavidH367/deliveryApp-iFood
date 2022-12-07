@@ -35,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ? const BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  Colors.amber,
+                  Colors.amberAccent,
                   Colors.cyan,
                 ],
                 begin:  FractionalOffset(0.0, 0.0),
@@ -47,8 +47,8 @@ class _HomeScreenState extends State<HomeScreen> {
               : const BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  Colors.redAccent,
-                  Colors.amber,
+                  Colors.white70,
+                  Colors.lightBlueAccent,
                 ],
                 begin:  FractionalOffset(0.0, 0.0),
                 end:  FractionalOffset(1.0, 0.0),
@@ -91,16 +91,18 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisSize: MainAxisSize.min,
             verticalDirection: VerticalDirection.down,
             children:[
-              const SizedBox(height: 50.0),
-              Center(
+
+              Flexible(
+                flex:2,
                 child: Icon(
                   iconData,
-                  size:4,
+                  size:50,
                   color: Colors.black,
                 ),
               ),
-              const SizedBox(height: 10.0),
-              Center(
+
+              Flexible(
+                flex:2,
                 child: Text(
                   title,
                   style: const TextStyle(
@@ -196,8 +198,8 @@ class _HomeScreenState extends State<HomeScreen> {
           padding: const EdgeInsets.all(2),
             children: [
               makeDashboardItem("Nuevos pedidos disponibles", Icons.assessment, 0),
-              makeDashboardItem("Paquete en Curso", Icons.airport_shuttle, 1),
-              makeDashboardItem("Entregas Pendientes", Icons.location_history, 2),
+              makeDashboardItem("Pedidos Preparados", Icons.airport_shuttle, 1),
+              makeDashboardItem("Pedidos para Entrega", Icons.location_history, 2),
               makeDashboardItem("Historial", Icons.done_all, 3),
               makeDashboardItem("Total Ganancias", Icons.monetization_on, 4),
               makeDashboardItem("Cerrar Sesion", Icons.logout, 5),

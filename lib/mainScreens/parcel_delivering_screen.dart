@@ -19,8 +19,8 @@ String? getOrderId;
 ParcelDeliveringScreen({
   this.purchaserId,
   this.purchaserAddress,
-  this.purchaserLat,
-  this.purchaserLng,
+  required this.purchaserLat,
+  required this.purchaserLng,
   this.sellerId,
   this.getOrderId,
 
@@ -32,6 +32,7 @@ ParcelDeliveringScreen({
 
 class _ParcelDeliveringScreenState extends State<ParcelDeliveringScreen> {
 String orderTotalAmount = "";
+
 
 
   confirmParcelHasBeenDelivered(getOrderId, sellerId, purchaserId, purchaserAddress, purchaserLat, purchaserLng) {
@@ -120,7 +121,7 @@ String orderTotalAmount = "";
           ),
           GestureDetector(
             onTap: () {
-              MapUtils.lauchMapFromSourceToDestination(position!.latitude, position!.longitude, widget.purchaserLat, widget.purchaserLng);
+              MapUtils.launchMapFromSourceToDestination(position!.latitude, position!.longitude, widget.purchaserLat, widget.purchaserLng);
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,

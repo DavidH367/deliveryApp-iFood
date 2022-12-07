@@ -18,9 +18,9 @@ class ParcelPickingScreen extends StatefulWidget {
     this.purchaserId,
     this.sellerId,
     this.getOrderID,
-    this.purchaserLat,
     this.purchaserAddress,
-    this.purchaserLng,
+    required this.purchaserLat,
+    required this.purchaserLng,
   });
 
   @override
@@ -46,7 +46,6 @@ class _ParcelPickingScreenState extends State<ParcelPickingScreen> {
   }
 @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getSellerData();
   }
@@ -63,6 +62,7 @@ class _ParcelPickingScreenState extends State<ParcelPickingScreen> {
       purchaserId: purchaserId,
       purchaserAddress: purchaserAddress,
       purchaserLat: purchaserLat,
+      purchaserLng: purchaserLng,
       sellerId:  sellerId,
       getOrderId: getOrderId,
 
@@ -85,8 +85,7 @@ class _ParcelPickingScreenState extends State<ParcelPickingScreen> {
           ),
           GestureDetector(
             onTap: () {
-              MapUtils.lauchMapFromSourceToDestination(position?.latitude,
-                  position!.longitude, sellerLat, sellerLng);
+              MapUtils.launchMapFromSourceToDestination(position!.latitude, position!.longitude, widget.purchaserLat, widget.purchaserLng);
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -104,7 +103,7 @@ class _ParcelPickingScreenState extends State<ParcelPickingScreen> {
                       height: 13,
                     ),
                     Text(
-                      "Ver cafe/Restaurant Ubicacion",
+                      "Ver ubicacion del Restaurante/cafeteria",
                       style: TextStyle(
                         fontSize: 18,
                         fontFamily: "Signatra",
@@ -154,7 +153,7 @@ class _ParcelPickingScreenState extends State<ParcelPickingScreen> {
                   height: 50,
                   child: const Center(
                     child: Text(
-                      "El pedido ha sido confirmado",
+                      "El pedido ha sido tomado por el motorista",
                       style: TextStyle(color: Colors.white, fontSize: 15.0),
                     ),
                   ),

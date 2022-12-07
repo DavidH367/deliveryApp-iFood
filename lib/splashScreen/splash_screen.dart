@@ -1,13 +1,8 @@
 import 'dart:async';
-
 import 'package:delivery/authentication/auth_screen.dart';
 import 'package:flutter/material.dart';
-
 import '../global/global.dart';
 import '../mainScreens/home_screen.dart';
-
-
-
 
 class MySplashScreen extends StatefulWidget {
   const MySplashScreen({Key? key}) : super(key: key);
@@ -16,12 +11,8 @@ class MySplashScreen extends StatefulWidget {
   _MySplashScreenState createState() => _MySplashScreenState();
 }
 
-
-
-class _MySplashScreenState extends State<MySplashScreen>
-{
-  startTimer()
-  {
+class _MySplashScreenState extends State<MySplashScreen> {
+  startTimer() {
     Timer(const Duration(seconds: 1), () async
     {
       //if rider is loggedin already

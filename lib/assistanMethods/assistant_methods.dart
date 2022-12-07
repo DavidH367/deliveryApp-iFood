@@ -1,9 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../global/global.dart';
 
-
-
-
 separateOrderItemIDs(orderIDs)
 {
   List<String> separateItemIDsList=[], defaultItemList=[];

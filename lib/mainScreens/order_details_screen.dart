@@ -89,14 +89,14 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen>
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            "Order Id = " + widget.orderID!,
+                            "ID Orden = " + widget.orderID!,
                             style: const TextStyle(fontSize: 16),
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            "Order at: " +
+                            "Orden realizada: " +
                                 DateFormat("dd MMMM, yyyy - hh:mm aa")
                                     .format(DateTime.fromMillisecondsSinceEpoch(int.parse(dataMap["orderTime"]))),
                             style: const TextStyle(fontSize: 16, color: Colors.grey),

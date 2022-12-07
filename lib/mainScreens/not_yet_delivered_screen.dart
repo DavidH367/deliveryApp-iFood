@@ -24,7 +24,7 @@ class _NotYetDeliveredScreenState extends State<NotYetDeliveredScreen>
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: SimpleAppBar(title: "Para Entrega",),
+        appBar: SimpleAppBar(title: "Pedidos Para Entrega",),
         body: StreamBuilder<QuerySnapshot>(
           stream: FirebaseFirestore.instance
               .collection("orders")
